@@ -22,10 +22,10 @@ func Build(validateToken ValidateToken, opts ...Option) func(http.Handler) http.
 		opt(m)
 	}
 
-	return BuildMiddleware(m.validateToken, m.errorHandler, m.credentialsOptional, m.tokenExtractor, m.validateOnOptions)
+	return buildMiddleware(m.validateToken, m.errorHandler, m.credentialsOptional, m.tokenExtractor, m.validateOnOptions)
 }
 
-func BuildMiddleware(validateToken ValidateToken,
+func buildMiddleware(validateToken ValidateToken,
 	errorHandler ErrorHandler,
 	credentialsOptional bool,
 	tokenExtractor TokenExtractor,
