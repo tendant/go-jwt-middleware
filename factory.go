@@ -6,26 +6,7 @@ import (
 	"net/http"
 )
 
-// New constructs a new JWTMiddleware instance with the supplied options.
-// It requires a ValidateToken function to be passed in, so it can
-// properly validate tokens.
-func Build(validateToken ValidateToken, opts ...Option) func(http.Handler) http.Handler {
-	m := &JWTMiddleware{
-		validateToken:       validateToken,
-		errorHandler:        DefaultErrorHandler,
-		credentialsOptional: false,
-		tokenExtractor:      AuthHeaderTokenExtractor,
-		validateOnOptions:   true,
-	}
-
-	for _, opt := range opts {
-		opt(m)
-	}
-
-	return buildMiddleware(m.validateToken, m.errorHandler, m.credentialsOptional, m.tokenExtractor, m.validateOnOptions)
-}
-
-func buildMiddleware(validateToken ValidateToken,
+func BuildMiddleware(validateToken ValidateToken,
 	errorHandler ErrorHandler,
 	credentialsOptional bool,
 	tokenExtractor TokenExtractor,
